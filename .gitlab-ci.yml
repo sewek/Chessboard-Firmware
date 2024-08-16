@@ -17,11 +17,17 @@ compile:
       - mkdir build
       - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
       - cd build
-      - make -j8
+      - make clean
+      - make
+      - ls -l
+      - ls -l lib/chess_logic
    artifacts:
       untracked: true
       paths:
          - build/
+         - build/lib/
+         - build/lib/chess_logic/
+         - build/lib/chess_logic/tests
 
 test-chess_logic:
    stage: test
