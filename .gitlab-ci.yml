@@ -13,8 +13,10 @@ compile:
       - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
       - cmake --build build
    artifacts:
+      expire_in: "30min"
+      untracked: false
       paths:
-         - build
+         - build/
 
 test-chess_logic:
    stage: test
