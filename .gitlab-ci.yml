@@ -24,9 +24,7 @@ compile:
    extends: .install-dependencies
    dependencies:
       - prepare
-   before_script:
-      - cd build
-   script: make
+   script: "cd build && make"
    artifacts:
       untracked: true
       paths:
@@ -46,9 +44,7 @@ coverage-chess_logic:
    extends: .install-dependencies
    dependencies:
       - compile
-   before_script:
-      - cd build
-   script: "make coverage"
+   script: "cd build && make coverage"
    artifacts:
       reports:
          coverage_report:
