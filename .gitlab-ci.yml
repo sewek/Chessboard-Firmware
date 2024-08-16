@@ -23,8 +23,6 @@ compile:
       - cd build
       - cmake .. -DCMAKE_BUILD_TYPE=Debug
       - make -j 8
-      - ls -la
-      - ls -la lib/chess_logic
    artifacts:
       untracked: true
       paths:
