@@ -12,13 +12,17 @@ stages:
 compile:
    stage: build
    extends: .install-dependencies
+   cache:
+      key: "$CI_COMMIT_REF_SLUG"
+      untracked: true
+      paths:
+         - build/
    script:
       - rm -rf build
       - mkdir build
-      - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
       - cd build
-      - make clean
-      - make all -j 4
+      - cmake .. -DCMAKE_BUILD_TYPE=Debug
+      - make -j 8
       - ls -la
       - ls -la lib/chess_logic
    artifacts:
