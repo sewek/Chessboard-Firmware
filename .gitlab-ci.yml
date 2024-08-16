@@ -1,0 +1,35 @@
+image: gcc:latest
+
+stages:
+   - build
+   - test
+
+before_script:
+   - apt-get update && apt-get install -y cmake make gcovr
+
+compile:
+   stage: build
+   script:
+      - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+      - cmake --build build
+   artifacts:
+      paths:
+         - build/lib/chess_logic/libchess_logic_lib.a
+
+test-chess_logic:
+   stage: test
+   script:
+      - ./build/lib/chess_logic/tests --reporter junit -o test-results.xml
+   artifacts:
+      reports:
+         junit: test-results.xml
+
+coverage-chess_logic:
+   stage: test
+   script:
+      - pushd build && make coverage && popd
+   artifacts:
+      reports:
+         coverage_report:
+            coverage_format: cobertura
+            path: build/lib/chess_logic/coverage.xml
