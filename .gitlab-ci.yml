@@ -14,7 +14,7 @@ compile:
       - cmake --build build
    artifacts:
       paths:
-         - build/lib/chess_logic/libchess_logic_lib.a
+         - build
 
 test-chess_logic:
    stage: test
