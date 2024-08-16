@@ -5,11 +5,14 @@ stages:
    - build
    - test
 
-before_script:
-   - apt-get update && apt-get install -y cmake make gcovr
+.install-dependencies:
+   before_script:
+      - apt-get update
+      - apt-get install -y cmake make gcovr
 
 prepare:
    stage: prebuild
+   extends: .install-dependencies
    script: "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug"
    artifacts:
       untracked: true
@@ -18,6 +21,7 @@ prepare:
 
 compile:
    stage: build
+   extends: .install-dependencies
    dependencies:
       - prepare
    before_script:
@@ -39,6 +43,7 @@ test-chess_logic:
 
 coverage-chess_logic:
    stage: test
+   extends: .install-dependencies
    dependencies:
       - compile
    before_script:
