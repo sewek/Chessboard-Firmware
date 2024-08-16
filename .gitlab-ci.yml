@@ -7,11 +7,21 @@ stages:
 before_script:
    - apt-get update && apt-get install -y cmake make gcovr
 
+prepare:
+   stage: build
+   script: "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug"
+   artifacts:
+      untracked: true
+      paths:
+         - build/
+
 compile:
    stage: build
-   script:
-      - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-      - pushd build && make && popd
+   dependencies:
+      - prepare
+   before_script:
+      - cd build
+   script: make
    artifacts:
       untracked: true
       paths:
@@ -19,20 +29,20 @@ compile:
 
 test-chess_logic:
    stage: test
-   script:
-      # - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-      # - cmake --build build
-      - ./build/lib/chess_logic/tests --reporter junit -o test-results.xml
+   dependencies:
+      - compile
+   script: "./build/lib/chess_logic/tests --reporter junit -o test-results.xml"
    artifacts:
       reports:
          junit: test-results.xml
 
 coverage-chess_logic:
    stage: test
-   script:
-      # - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-      # - cmake --build build
-      - pushd build && make coverage && popd
+   dependencies:
+      - compile
+   before_script:
+      - cd build
+   script: "make coverage"
    artifacts:
       reports:
          coverage_report:
