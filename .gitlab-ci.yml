@@ -1,6 +1,7 @@
 image: gcc:latest
 
 stages:
+   - prebuild
    - build
    - test
 
@@ -8,7 +9,7 @@ before_script:
    - apt-get update && apt-get install -y cmake make gcovr
 
 prepare:
-   stage: build
+   stage: prebuild
    script: "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug"
    artifacts:
       untracked: true
