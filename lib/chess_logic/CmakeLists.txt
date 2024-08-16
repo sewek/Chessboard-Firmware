@@ -4,13 +4,13 @@ if (POLICY CMP0025)
    cmake_policy(SET CMP0025 NEW)
 endif ()
 
-set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Werror -fprofile-arcs -ftest-coverage -O0")
+set(GCC_COVERAGE_COMPILE_FLAGS "-Wall -Werror -g -fprofile-arcs -ftest-coverage --coverage -O0")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(SOURCES
-   src/chess_logic.cpp
+   src/chess.cpp
    src/chess_board.cpp
    src/chess_position.cpp
    src/chess_events.cpp
@@ -28,6 +28,7 @@ set(TESTS
    test/position.cpp
 )
 
+enable_testing()
 Include(FetchContent)
 FetchContent_Declare(
   Catch2
@@ -46,6 +47,7 @@ include(Catch)
 catch_discover_tests(tests)
 
 # Coverage
+set(GCOVR_ADDITIONAL_ARGS "--gcov-ignore-parse-errors")
 include(../../cmake/CodeCoverage.cmake)
 APPEND_COVERAGE_COMPILER_FLAGS()
 setup_target_for_coverage_gcovr_xml(
