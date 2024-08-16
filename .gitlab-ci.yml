@@ -1,7 +1,6 @@
 image: gcc:latest
 
 stages:
-   - prebuild
    - build
    - test
 
@@ -10,21 +9,15 @@ stages:
       - apt-get update
       - apt-get install -y cmake make gcovr
 
-prepare:
-   stage: prebuild
-   extends: .install-dependencies
-   script: "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug"
-   artifacts:
-      untracked: true
-      paths:
-         - build/
-
 compile:
    stage: build
    extends: .install-dependencies
-   dependencies:
-      - prepare
-   script: "cd build && make"
+   script:
+      - rm -rf build
+      - mkdir build
+      - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+      - cd build
+      - make -j8
    artifacts:
       untracked: true
       paths:
@@ -32,8 +25,6 @@ compile:
 
 test-chess_logic:
    stage: test
-   dependencies:
-      - compile
    script: "./build/lib/chess_logic/tests --reporter junit -o test-results.xml"
    artifacts:
       reports:
@@ -42,8 +33,6 @@ test-chess_logic:
 coverage-chess_logic:
    stage: test
    extends: .install-dependencies
-   dependencies:
-      - compile
    script: "cd build && make coverage"
    artifacts:
       reports:
