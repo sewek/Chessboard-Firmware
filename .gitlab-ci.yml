@@ -18,9 +18,9 @@ compile:
       - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
       - cd build
       - make clean
-      - make
-      - ls -l
-      - ls -l lib/chess_logic
+      - make all -j 4
+      - ls -la
+      - ls -la lib/chess_logic
    artifacts:
       untracked: true
       paths:
