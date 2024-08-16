@@ -1,7 +1,3 @@
-/**
- * ChessPosition test
- */
-
 #include <catch2/catch_test_macros.hpp>
 
 #include "chess_position.h"
