@@ -14,7 +14,7 @@ compile:
       - cmake --build build
    artifacts:
       expire_in: "30min"
-      untracked: false
+      untracked: true
       paths:
          - build/
 
