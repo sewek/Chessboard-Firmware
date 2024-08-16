@@ -10,10 +10,9 @@ before_script:
 compile:
    stage: build
    script:
-      - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+      - cmake -S . -B build
       - cmake --build build
    artifacts:
-      expire_in: "30min"
       untracked: true
       paths:
          - build/
@@ -21,6 +20,8 @@ compile:
 test-chess_logic:
    stage: test
    script:
+      - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+      - cmake --build build
       - ./build/lib/chess_logic/tests --reporter junit -o test-results.xml
    artifacts:
       reports:
@@ -29,6 +30,8 @@ test-chess_logic:
 coverage-chess_logic:
    stage: test
    script:
+      - cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+      - cmake --build build
       - pushd build && make coverage && popd
    artifacts:
       reports:
