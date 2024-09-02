@@ -36,7 +36,7 @@ With JLCPCB’s support, we’re making steady progress on our interactive chess
 
 If you’re a student working on your own project, I highly recommend checking out JLCPCB. They’ve been a fantastic partner, and I’m confident they can help you bring your ideas to life too.
 
-Learn more about [JLCPCB](https://jlcpcb.com/) at https://jlcpcb.com/.
+Learn more about [JLCPCB](https://jlcpcb.com/?from=see) at https://jlcpcb.com/?from=see.
 
 # License
 
