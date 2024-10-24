@@ -54,15 +54,7 @@ quality-chess_logic:
    allow_failure: true
    services:
     - docker:stable-dind
-   variables:
-      DOCKER_DRIVER: overlay2
    script:
-    - |
-      if ! docker info &>/dev/null; then
-        if [ -z "$DOCKER_HOST" -a "$KUBERNETES_PORT" ]; then
-          export DOCKER_HOST='tcp://localhost:2375'
-        fi
-      fi
     - docker run
         --env SOURCE_CODE="$PWD"
         --volume "$PWD":/code
@@ -81,15 +73,7 @@ quality-app:
    allow_failure: true
    services:
     - docker:stable-dind
-   variables:
-      DOCKER_DRIVER: overlay2
    script:
-    - |
-      if ! docker info &>/dev/null; then
-        if [ -z "$DOCKER_HOST" -a "$KUBERNETES_PORT" ]; then
-          export DOCKER_HOST='tcp://localhost:2375'
-        fi
-      fi
     - docker run
         --env SOURCE_CODE="$PWD"
         --volume "$PWD":/code
