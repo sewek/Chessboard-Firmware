@@ -65,9 +65,9 @@ quality-chess_logic:
       fi
     - docker run
         --env SOURCE_CODE="$PWD"
-        --volume "$PWD/lib/chess_logic":/code
+        --volume "$PWD":/code
         --volume /var/run/docker.sock:/var/run/docker.sock
-        "registry.gitlab.com/gitlab-org/security-products/codequality:11-8-stable" /code
+        "registry.gitlab.com/gitlab-org/security-products/codequality:11-8-stable" /code/lib/chess_logic
    artifacts:
       paths: [gl-code-quality-report.json]
       expire_in: 1 month
@@ -92,9 +92,9 @@ quality-app:
       fi
     - docker run
         --env SOURCE_CODE="$PWD"
-        --volume "$PWD/app":/code
+        --volume "$PWD":/code
         --volume /var/run/docker.sock:/var/run/docker.sock
-        "registry.gitlab.com/gitlab-org/security-products/codequality:11-8-stable" /code
+        "registry.gitlab.com/gitlab-org/security-products/codequality:11-8-stable" /code/app
    artifacts:
       paths: [gl-code-quality-report.json]
       expire_in: 1 month
